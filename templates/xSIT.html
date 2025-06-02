@@ -637,42 +637,6 @@
             ctx.stroke();
         }
 
-        document.getElementById('calculateBtn').addEventListener('click', async () => {
-            const numPlayers = parseInt(document.getElementById('numPlayers').value);
-            const shotSpeed = parseFloat(document.getElementById('shotSpeed').value);
-
-            // Asegúrate de tener estas variables globales bien definidas:
-            // - ballPosition = [x, y]
-            // - goalkeeperPosition = [x, y]
-            // - playerPositions = [[x1, y1], [x2, y2], ...]
-
-            if (!window.ballPosition || !window.goalkeeperPosition || !window.playerPositions || playerPositions.length !== numPlayers) {
-                alert('Please place all positions on the field.');
-                return;
-            }
-
-            const response = await fetch('/compute_xsit', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    ball_position: ballPosition,
-                    goalkeeper_position: goalkeeperPosition,
-                    players: playerPositions,
-                    speed: shotSpeed
-                })
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                document.getElementById('xsitValue').textContent = data.xsit.toFixed(2);
-            } else {
-                alert('Error calculating xSIT');
-            }
-        });
-
-
     </script>
 </body>
 </html>
