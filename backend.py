@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.patches import Polygon, Circle
@@ -96,6 +96,10 @@ def calculate_xsit_route():
 
     xsit_value = calcular_xsit(pos_balon, portero, jugadores, velocidad_balon)
     return jsonify({"xsit": xsit_value})
+    
+@app.route("/")
+def index():
+    return render_template("xSIT.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
