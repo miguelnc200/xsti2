@@ -75,11 +75,11 @@ def calcular_xsit(pos_balon, portero, jugadores, velocidad_balon):
     mask = path.contains_points(coords).reshape((h, w))
 
     colores_dentro = image[mask]
-    colores_redondeados = (colores_dentro // 10) * 10
+    colores_redondeados = (colores_dentro[:,3] // 10) * 10
     colores_unicos, counts = np.unique(colores_redondeados, axis=0, return_counts=True)
 
     for color, count in zip(colores_unicos, counts):
-        if tuple(color) == (250, 0, 0):
+        if np.all(np.abs(color - [250, 0, 0]) <= 5):
             porcentaje = count / np.sum(counts)
             return porcentaje
 
