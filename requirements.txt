@@ -2,4 +2,3 @@ flask
 flask-cors
 matplotlib
 numpy
-math
