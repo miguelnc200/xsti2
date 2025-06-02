@@ -9,7 +9,7 @@ from flask_cors import CORS
 
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 def calcular_tiempo_llegada(pos_balon, velocidad_balon, pos_jugador):
     """Calcula el tiempo que tarda el balón en llegar a la posición del jugador"""
