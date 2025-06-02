@@ -58,9 +58,11 @@ def calcular_xsit(pos_balon, portero, jugadores, velocidad_balon):
     plt.legend()
 
     # Procesing the white area
-    fig.canvas.draw()
-    w, h = fig.canvas.get_width_height()
-    image = np.frombuffer(fig.canvas.tostring_rgb(), dtype='uint8').reshape((h, w, 3))
+    canvas = FigureCanvas(fig)
+    canvas.draw()
+
+    w, h = canvas.get_width_height()
+    image = np.frombuffer(canvas.buffer_rgba(), dtype='uint8').reshape((h, w, 4))
     plt.close(fig)
 
     transform = ax.transData
