@@ -74,19 +74,10 @@ def calcular_xsit(pos_balon, portero, jugadores, velocidad_balon):
     colores_redondeados = (colores_dentro[:, :3] // 10) * 10  # solo R, G, B
     colores_unicos, counts = np.unique(colores_redondeados, axis=0, return_counts=True)
 
-    print("Colores detectados dentro del triángulo:")
-    for color, count in zip(colores_unicos, counts):
-        print(f"Color {tuple(color)}: {count} píxeles")
-
     for color, count in zip(colores_unicos, counts):
         if np.all(np.abs(color - [250, 0, 0]) <= 1):  # margen de tolerancia
             porcentaje = count / np.sum(counts)
-            print(np.sum(counts))
-            print(f"Porcentaje del triángulo en rojo: {porcentaje:.4f}")
-            plt.show()
             return porcentaje
-
-    plt.show()
     return 0.0
 
 @app.route('/calculate_xsit', methods=['POST'])
