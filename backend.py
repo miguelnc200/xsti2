@@ -82,6 +82,7 @@ def calcular_xsit(pos_balon, portero, jugadores, velocidad_balon):
         if np.all(np.abs(color - [250, 0, 0]) <= 5):
             porcentaje = count / np.sum(counts)
             return porcentaje
+    return 0.0
 
 @app.route('/calculate_xsit', methods=['POST'])
 def calculate_xsit_route():
