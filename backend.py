@@ -23,68 +23,40 @@ def calcular_radio_efectivo(tiempo_llegada, radio_base, tiempo_reaccion):
     return radio_base * factor
 
 def calcular_xsit(pos_balon, portero, jugadores, velocidad_balon):
-    fig, ax = plt.subplots(figsize=(10, 6), dpi=100)
-    ax.set_xlim(0, 120)
-    ax.set_ylim(0, 75)
-    ax.set_xticks([])
-    ax.set_yticks([])
-    ax.set_frame_on(False)
-    ax.set_facecolor('white')
+    """Calcula una métrica xSIT basada en la proporción de interferencia en el triángulo de disparo"""
 
     # Definir la portería en función de la posición del balón
     porteria = [(120, 32), (120, 43)] if pos_balon[0] >= 60 else [(0, 32), (0, 43)]
 
-    # Triángulo formado por balón y portería
-    vertices_triangulo = np.array([pos_balon, porteria[0], porteria[1]])
-    triangulo = Polygon(vertices_triangulo, closed=True, edgecolor='red', facecolor=(1, 0, 0), linewidth=2)
-    ax.add_patch(triangulo)
+    # Área del triángulo formado por balón y portería
+    def area_triangulo(a, b, c):
+        return abs((a[0]*(b[1]-c[1]) + b[0]*(c[1]-a[1]) + c[0]*(a[1]-b[1])) / 2.0)
 
-    # Dibujar balón
-    ax.scatter(*pos_balon, color='red', s=100, label="Ball")
+    area_total = area_triangulo(pos_balon, porteria[0], porteria[1])
 
-    # Dibujar jugadores con círculos que dependen de la velocidad del balón
-    for jugador in jugadores:
+    # Calcular cuánta parte del triángulo está cubierta por jugadores
+    def jugador_interfiere(jugador):
         tiempo = calcular_tiempo_llegada(pos_balon, velocidad_balon, jugador)
         radio = calcular_radio_efectivo(tiempo, radio_base=1.5, tiempo_reaccion=0.25)
-        circulo = Circle(jugador, radius=radio, color='blue', alpha=0.5)
-        ax.add_patch(circulo)
+        # Si el jugador está dentro del triángulo, lo consideramos como que interfiere
+        area1 = area_triangulo(jugador, porteria[0], porteria[1])
+        area2 = area_triangulo(pos_balon, jugador, porteria[1])
+        area3 = area_triangulo(pos_balon, porteria[0], jugador)
+        return abs(area1 + area2 + area3 - area_total) < 1e-2
 
-    # Dibujar portero con círculo
-    tiempo_portero = calcular_tiempo_llegada(pos_balon, velocidad_balon, portero)
-    radio_portero = calcular_radio_efectivo(tiempo_portero, radio_base=2.0, tiempo_reaccion=0.23)
-    por = Circle(portero, radius=radio_portero, color='green', alpha=0.5, label="Goalkeeper")
-    ax.add_patch(por)
+    jugadores_interfieren = sum(jugador_interfiere(j) for j in jugadores)
 
-    plt.legend()
+    # Portero también interfiere, con más peso
+    interfiere_portero = jugador_interfiere(portero)
+    peso_portero = 2
 
-    # Procesar el área blanca (dentro del triángulo)
-    fig, ax = plt.subplots()
+    total_interferencia = jugadores_interfieren + (peso_portero if interfiere_portero else 0)
 
-    canvas = FigureCanvas(fig)
-    canvas.draw()
-    w, h = fig.canvas.get_width_height()
-    image = np.frombuffer(canvas.buffer_rgba(), dtype='uint8').reshape((h, w, 4))
-    plt.close(fig)
+    # Normalizar entre 0 y 1
+    max_valor = len(jugadores) + peso_portero
+    xsit = total_interferencia / max_valor if max_valor > 0 else 0
 
-    transform = ax.transData
-    pix_vertices = transform.transform(vertices_triangulo)
-    pix_vertices[:, 1] = h - pix_vertices[:, 1]
-
-    path = Path(pix_vertices)
-    Y, X = np.mgrid[0:h, 0:w]
-    coords = np.vstack((X.ravel(), Y.ravel())).T
-    mask = path.contains_points(coords).reshape((h, w))
-
-    colores_dentro = image[mask]
-    colores_redondeados = (colores_dentro // 10) * 10
-    colores_unicos, counts = np.unique(colores_redondeados, axis=0, return_counts=True)
-
-    for color, count in zip(colores_unicos, counts):
-        if tuple(color) == (250, 0, 0):  # Color rojo del triángulo
-            porcentaje = count / np.sum(counts)
-            return porcentaje
-
-    return 0  # Valor por defecto si no encuentra el color
+    return round(xsit, 4)
 
 @app.route('/calculate_xsit', methods=['POST'])
 def calculate_xsit_route():
@@ -100,10 +72,10 @@ def calculate_xsit_route():
 
     xsit_value = calcular_xsit(pos_balon, portero, jugadores, velocidad_balon)
     return jsonify({"xsit": xsit_value})
-    
+
 @app.route("/")
 def index():
-    return render_template("xSIT.html")
+    return render_template("xSIT.html") 
 
 if __name__ == "__main__":
     import os
