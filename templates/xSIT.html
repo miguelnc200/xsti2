@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Precision xSIT Calculator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a1a3d, #1d3c5f, #0a1a3d);
+            color: white;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            color: #4da6ff;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .panel {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .panel-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #4da6ff;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(77, 166, 255, 0.3);
+        }
+        
+        .control-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #4da6ff;
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        button {
+            background: linear-gradient(to right, #4da6ff, #0066cc);
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .status {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+            border-left: 4px solid #4da6ff;
+        }
+        
+        .canvas-container {
+            position: relative;
+            background: #1e3c1e;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+        }
+        
+        canvas {
+            display: block;
+            max-width: 100%;
+        }
+        
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .color-box {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+        
+        .xsit-result {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .xsit-value {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #4da6ff;
+            margin: 20px 0;
+            text-shadow: 0 0 10px rgba(77, 166, 255, 0.5);
+        }
+        
+        .xsit-label {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .explanation {
+            text-align: left;
+            margin-top: 30px;
+            line-height: 1.7;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .explanation h3 {
+            color: #4da6ff;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .explanation ul {
+            padding-left: 25px;
+            margin-top: 15px;
+        }
+        
+        .explanation li {
+            margin-bottom: 10px;
+        }
+        
+        .position-help {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .xsit-value {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Precision xSIT Calculator</h1>
+            <p class="subtitle">Advanced interactive tool for calculating Expected Shot Interference Threat metric with precise positioning of players.</p>
+        </header>
+        
+        <div class="content">
+            <div class="panel">
+                <h2 class="panel-title">Configuration</h2>
+                
+                <div class="control-group">
+                    <label for="numPlayers">Number of defensive players:</label>
+                    <input type="number" id="numPlayers" min="1" max="20" value="5">
+                </div>
+                
+                <div class="control-group">
+                    <label for="shotSpeed">Shot speed (km/h):</label>
+                    <input type="number" id="shotSpeed" min="20" max="150" value="80">
+                </div>
+                
+                <div class="control-group">
+                    <label>Ball position (click on the field):</label>
+                    <div class="status" id="ballStatus">Not placed</div>
+                    <div class="position-help">(Click on the shot position)</div>
+                </div>
+                
+                <div class="control-group">
+                    <label>Goalkeeper position (click on the field):</label>
+                    <div class="status" id="gkStatus">Not placed</div>
+                    <div class="position-help">(Click on the goalkeeper position)</div>
+                </div>
+                
+                <div class="control-group">
+                    <label>Player positions (click on the field):</label>
+                    <div class="status" id="playersStatus">0 / 0 placed</div>
+                    <div class="position-help">(Click to place each player)</div>
+                </div>
+                
+                <button id="calculateBtn">Calculate xSIT</button>
+                <button id="resetBtn">Reset</button>
+            </div>
+            
+            <div class="panel">
+                <h2 class="panel-title">Football Field</h2>
+                <div class="canvas-container">
+                    <canvas id="footballField" width="800" height="500"></canvas>
+                </div>
+                
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="color-box" style="background-color: #ff4d4d;"></div>
+                        <span>Ball</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="color-box" style="background-color: #33cc33;"></div>
+                        <span>Goalkeeper</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="color-box" style="background-color: #4da6ff;"></div>
+                        <span>Players</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="color-box" style="background-color: rgba(51, 204, 51, 0.3);"></div>
+                        <span>Goalkeeper effective area</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="color-box" style="background-color: rgba(77, 166, 255, 0.3);"></div>
+                        <span>Player effective area</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="xsit-result">
+            <div class="xsit-label">Your xSIT result:</div>
+            <div class="xsit-value" id="xsitValue">0.00</div>
+            <div class="explanation">
+                <h3>What is xSIT?</h3>
+                <p>xSIT (Expected Shot Interference Threat) is an advanced metric that calculates the probability of a shot being interfered with by defensive players. It is based on:</p>
+                <ul>
+                    <li><strong>Ball position:</strong> Determines the danger zone</li>
+                    <li><strong>Goalkeeper position:</strong> Their ability to cover goal areas</li>
+                    <li><strong>Defender positions:</strong> Proximity to the ball's trajectory</li>
+                    <li><strong>Shot speed:</strong> Affects players' reaction time</li>
+                </ul>
+                <p>The xSIT value is represented as a percentage between 0 (no interference) and 1 (certain interference).</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        const canvas = document.getElementById('footballField');
+        const ctx = canvas.getContext('2d');
+        const ballStatus = document.getElementById('ballStatus');
+        const gkStatus = document.getElementById('gkStatus');
+        const playersStatus = document.getElementById('playersStatus');
+        const xsitValue = document.getElementById('xsitValue');
+        const calculateBtn = document.getElementById('calculateBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const numPlayersInput = document.getElementById('numPlayers');
+        const shotSpeedInput = document.getElementById('shotSpeed');
+        
+        // Field dimensions in meters
+        const fieldWidth = 120;  // meters
+        const fieldHeight = 75;  // meters
+        
+        // Canvas dimensions in pixels
+        const canvasWidth = canvas.width;
+        const canvasHeight = canvas.height;
+        
+        // Scaling factors
+        const scaleX = canvasWidth / fieldWidth;
+        const scaleY = canvasHeight / fieldHeight;
+        
+        let ballPosition = null;
+        let goalkeeperPosition = null;
+        let playerPositions = [];
+        let numPlayers = parseInt(numPlayersInput.value);
+        let state = 'ball'; // ball -> goalkeeper -> players
+        
+        // Initialize field
+        drawField();
+        updateStatus();
+        
+        // Event listeners
+        canvas.addEventListener('click', handleCanvasClick);
+        numPlayersInput.addEventListener('change', updateNumPlayers);
+        calculateBtn.addEventListener('click', calculateXSIT);
+        resetBtn.addEventListener('click', resetApp);
+        
+        function updateNumPlayers() {
+            numPlayers = parseInt(numPlayersInput.value);
+            playersStatus.textContent = `0 / ${numPlayers} placed`;
+        }
+        
+        function handleCanvasClick(event) {
+            const rect = canvas.getBoundingClientRect();
+            
+            // Calculate actual click position considering canvas scaling
+            const scaleXCanvas = canvas.width / rect.width;
+            const scaleYCanvas = canvas.height / rect.height;
+            
+            const x = (event.clientX - rect.left) * scaleXCanvas;
+            const y = (event.clientY - rect.top) * scaleYCanvas;
+            
+            // Convert to field coordinates (meters)
+            const fieldX = x / scaleX;
+            const fieldY = (canvasHeight - y) / scaleY;
+            
+            switch(state) {
+                case 'ball':
+                    ballPosition = { x: fieldX, y: fieldY };
+                    state = 'goalkeeper';
+                    break;
+                case 'goalkeeper':
+                    goalkeeperPosition = { x: fieldX, y: fieldY };
+                    state = 'players';
+                    playerPositions = [];
+                    break;
+                case 'players':
+                    if (playerPositions.length < numPlayers) {
+                        playerPositions.push({ x: fieldX, y: fieldY });
+                        if (playerPositions.length === numPlayers) {
+                            state = 'ready';
+                        }
+                    }
+                    break;
+            }
+            
+            drawField();
+            updateStatus();
+        }
+        
+        function updateStatus() {
+            ballStatus.textContent = ballPosition ? "Placed" : "Not placed";
+            ballStatus.style.color = ballPosition ? "#4CAF50" : "#F44336";
+            
+            gkStatus.textContent = goalkeeperPosition ? "Placed" : "Not placed";
+            gkStatus.style.color = goalkeeperPosition ? "#4CAF50" : "#F44336";
+            
+            playersStatus.textContent = `${playerPositions.length} / ${numPlayers} placed`;
+            playersStatus.style.color = playerPositions.length === numPlayers ? "#4CAF50" : 
+                                      playerPositions.length > 0 ? "#FFC107" : "#F44336";
+            
+            if (state === 'ready') {
+                playersStatus.textContent += " - Ready to calculate!";
+            }
+        }
+        
+        async function calculateXSIT() {
+
+            
+            try {
+                const shotSpeed = parseFloat(shotSpeedInput.value);
+                
+                // Prepare data for backend
+                const data = {
+                    pos_balon: [ballPosition.x, ballPosition.y],
+                    velocidad_balon: shotSpeed,
+                    portero: [goalkeeperPosition.x, goalkeeperPosition.y],
+                    jugadores: playerPositions.map(p => [p.x, p.y])
+                };
+                
+                // Send request to backend
+                const response = await fetch('http://127.0.0.1:5000/calculate_xsit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                // Update UI with result
+                animateValue(0, result.xsit, 1500);
+            } catch (error) {
+                console.error('Error calculating xSIT:', error);
+                alert('Error connecting to backend. Make sure the server is running.');
+            }
+        }
+        
+        function animateValue(start, end, duration) {
+            const startTime = performance.now();
+            const step = (timestamp) => {
+                const progress = Math.min((timestamp - startTime) / duration, 1);
+                const value = start + progress * (end - start);
+                xsitValue.textContent = value.toFixed(2);
+                
+                // Change color based on value
+                const hue = 200 - (value * 100); // Blue to lighter blue
+                xsitValue.style.color = `hsl(${hue}, 100%, 65%)`;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                }
+            };
+            requestAnimationFrame(step);
+        }
+        
+        function resetApp() {
+            ballPosition = null;
+            goalkeeperPosition = null;
+            playerPositions = [];
+            state = 'ball';
+            xsitValue.textContent = "0.00";
+            xsitValue.style.color = "#4da6ff";
+            drawField();
+            updateStatus();
+        }
+        
+        function drawField() {
+            // Clear canvas
+            ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+            
+            // Draw grass
+            ctx.fillStyle = '#1e3c1e';
+            ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+            
+            // Draw field lines
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(0, 0, canvasWidth, canvasHeight);
+            
+            // Center line
+            ctx.beginPath();
+            ctx.moveTo(canvasWidth/2, 0);
+            ctx.lineTo(canvasWidth/2, canvasHeight);
+            ctx.stroke();
+            
+            // Center circle
+            ctx.beginPath();
+            ctx.arc(canvasWidth/2, canvasHeight/2, 70, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            // Goal areas
+            ctx.strokeRect(0, canvasHeight/2 - 100, 100, 200);
+            ctx.strokeRect(canvasWidth - 100, canvasHeight/2 - 100, 100, 200);
+            
+            // Goals
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, canvasHeight/2 - 30, 5, 60);
+            ctx.fillRect(canvasWidth - 5, canvasHeight/2 - 30, 5, 60);
+            
+            // Penalty areas
+            ctx.strokeRect(0, canvasHeight/2 - 150, 50, 300);
+            ctx.strokeRect(canvasWidth - 50, canvasHeight/2 - 150, 50, 300);
+            
+            // Center spot
+            ctx.beginPath();
+            ctx.arc(canvasWidth/2, canvasHeight/2, 5, 0, Math.PI * 2);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            
+            // Draw elements if they exist
+            if (ballPosition) {
+                drawBall(ballPosition.x, ballPosition.y);
+            }
+            
+            if (goalkeeperPosition) {
+                drawGoalkeeper(goalkeeperPosition.x, goalkeeperPosition.y);
+            }
+            
+            playerPositions.forEach(player => {
+                drawPlayer(player.x, player.y);
+            });
+            
+            // Draw effective area if ball exists
+            if (ballPosition) {
+                drawEffectiveArea();
+            }
+        }
+        
+        function drawBall(x, y) {
+            // Convert meters to pixels
+            const canvasX = x * scaleX;
+            const canvasY = canvasHeight - (y * scaleY);
+            
+            ctx.beginPath();
+            ctx.arc(canvasX, canvasY, 8, 0, Math.PI * 2);
+            ctx.fillStyle = '#ff4d4d';
+            ctx.fill();
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+        
+        function drawGoalkeeper(x, y) {
+            // Convert meters to pixels
+            const canvasX = x * scaleX;
+            const canvasY = canvasHeight - (y * scaleY);
+            
+            // Draw effective area
+            const radius = 25;
+            ctx.beginPath();
+            ctx.arc(canvasX, canvasY, radius, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(51, 204, 51, 0.3)';
+            ctx.fill();
+            
+            // Draw goalkeeper
+            ctx.beginPath();
+            ctx.arc(canvasX, canvasY, 10, 0, Math.PI * 2);
+            ctx.fillStyle = '#33cc33';
+            ctx.fill();
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+        
+        function drawPlayer(x, y) {
+            // Convert meters to pixels
+            const canvasX = x * scaleX;
+            const canvasY = canvasHeight - (y * scaleY);
+            
+            // Draw effective area
+            const radius = 20;
+            ctx.beginPath();
+            ctx.arc(canvasX, canvasY, radius, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(77, 166, 255, 0.3)';
+            ctx.fill();
+            
+            // Draw player
+            ctx.beginPath();
+            ctx.arc(canvasX, canvasY, 8, 0, Math.PI * 2);
+            ctx.fillStyle = '#4da6ff';
+            ctx.fill();
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+        
+        function drawEffectiveArea() {
+            // Convert meters to pixels
+            const ballCanvasX = ballPosition.x * scaleX;
+            const ballCanvasY = canvasHeight - (ballPosition.y * scaleY);
+            
+            // Draw shot cone
+            const goalX = ballPosition.x > 60 ? canvasWidth : 0;
+            const goalY1 = canvasHeight - (32 * scaleY);
+            const goalY2 = canvasHeight - (43 * scaleY);
+            
+            ctx.beginPath();
+            ctx.moveTo(ballCanvasX, ballCanvasY);
+            ctx.lineTo(goalX, goalY1);
+            ctx.lineTo(goalX, goalY2);
+            ctx.closePath();
+            
+            ctx.fillStyle = 'rgba(255, 0, 0, 0.2)';
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(255, 0, 0, 0.6)';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+        }
+
+        document.getElementById('calculateBtn').addEventListener('click', async () => {
+            const numPlayers = parseInt(document.getElementById('numPlayers').value);
+            const shotSpeed = parseFloat(document.getElementById('shotSpeed').value);
+
+            // Asegúrate de tener estas variables globales bien definidas:
+            // - ballPosition = [x, y]
+            // - goalkeeperPosition = [x, y]
+            // - playerPositions = [[x1, y1], [x2, y2], ...]
+
+            if (!window.ballPosition || !window.goalkeeperPosition || !window.playerPositions || playerPositions.length !== numPlayers) {
+                alert('Please place all positions on the field.');
+                return;
+            }
+
+            const response = await fetch('/compute_xsit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    ball_position: ballPosition,
+                    goalkeeper_position: goalkeeperPosition,
+                    players: playerPositions,
+                    speed: shotSpeed
+                })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                document.getElementById('xsitValue').textContent = data.xsit.toFixed(2);
+            } else {
+                alert('Error calculating xSIT');
+            }
+        });
+
+
+    </script>
+</body>
+</html>
