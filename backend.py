@@ -21,7 +21,7 @@ def calcular_radio_efectivo(tiempo_llegada, radio_base, tiempo_reaccion):
 
 def calcular_xsit(pos_balon, portero, jugadores, velocidad_balon):
     fig, ax = plt.subplots(figsize=(10, 6), dpi=100)
-    ax.set_xlim(0, 40)
+    ax.set_xlim(0, 120)
     ax.set_ylim(0, 75)
     ax.set_xticks([])
     ax.set_yticks([])
