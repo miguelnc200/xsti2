@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, render_template
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.patches import Polygon, Circle
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.path import Path
 import math
 from flask_cors import CORS
