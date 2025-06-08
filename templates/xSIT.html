@@ -248,7 +248,7 @@
             <div class="panel">
                 <h2 class="panel-title">Football Field</h2>
                 <div class="canvas-container">
-                    <canvas id="footballField" width="800" height="500"></canvas>
+                    <canvas id="footballField" width="500" height="800"></canvas>
                 </div>
                 
                 <div class="legend">
@@ -342,8 +342,8 @@
         const shotSpeedInput = document.getElementById('shotSpeed');
         
         // Field dimensions in meters
-        const fieldWidth = 120;  // meters
-        const fieldHeight = 75;  // meters
+        const fieldWidth = 75;  // meters
+        const fieldHeight = 40;  // meters
         
         // Canvas dimensions in pixels
         const canvasWidth = canvas.width;
@@ -507,54 +507,54 @@
             ctx.lineWidth = 2;
             ctx.strokeRect(0, 0, canvasWidth, canvasHeight);
             
-            // Center line
-            ctx.beginPath();
-            ctx.moveTo(canvasWidth/2, 0);
-            ctx.lineTo(canvasWidth/2, canvasHeight);
-            ctx.stroke();
-            
-            // Center circle
-            ctx.beginPath();
-            ctx.arc(canvasWidth/2, canvasHeight/2, 70, 0, Math.PI * 2);
-            ctx.stroke();
-            
-            // Goal areas
-            ctx.strokeRect(0, canvasHeight/2 - 100, 100, 200);
-            ctx.strokeRect(canvasWidth - 100, canvasHeight/2 - 100, 100, 200);
-            
-            // Goals
+            // Draw single goal area at top
+            const goalWidth = 100; // in pixels
+            const areaWidth = scaleX * 16.5; // 16.5m area width
+            const areaHeight = scaleY * 5.5; // 5.5m area depth
+            const penaltyAreaHeight = scaleY * 16.5;
+            const penaltyAreaWidth = scaleX * 40; // full width
+        
+            // Goal posts
             ctx.fillStyle = 'white';
-            ctx.fillRect(0, canvasHeight/2 - 30, 5, 60);
-            ctx.fillRect(canvasWidth - 5, canvasHeight/2 - 30, 5, 60);
-            
-            // Penalty areas
-            ctx.strokeRect(0, canvasHeight/2 - 150, 50, 300);
-            ctx.strokeRect(canvasWidth - 50, canvasHeight/2 - 150, 50, 300);
-            
-            // Center spot
-            ctx.beginPath();
-            ctx.arc(canvasWidth/2, canvasHeight/2, 5, 0, Math.PI * 2);
-            ctx.fillStyle = 'white';
-            ctx.fill();
-            
-            // Draw elements if they exist
+            const goalX1 = canvasWidth / 2 - goalWidth / 2;
+            const goalX2 = canvasWidth / 2 + goalWidth / 2;
+            ctx.fillRect(goalX1, 0, 5, 10);
+            ctx.fillRect(goalX2 - 5, 0, 5, 10);
+        
+            // Small area (goal area)
+            ctx.strokeRect(
+                canvasWidth / 2 - areaWidth / 2,
+                0,
+                areaWidth,
+                areaHeight
+            );
+        
+            // Penalty area
+            ctx.strokeRect(
+                canvasWidth / 2 - penaltyAreaWidth / 2,
+                0,
+                penaltyAreaWidth,
+                penaltyAreaHeight
+            );
+        
+            // Draw ball
             if (ballPosition) {
                 drawBall(ballPosition.x, ballPosition.y);
             }
-            
+        
             if (goalkeeperPosition) {
                 drawGoalkeeper(goalkeeperPosition.x, goalkeeperPosition.y);
             }
-            
+        
             playerPositions.forEach(player => {
                 drawPlayer(player.x, player.y);
             });
-            
-            // Draw effective area if ball exists
+        
             if (ballPosition) {
                 drawEffectiveArea();
             }
         }
+
         
         function drawBall(x, y) {
             // Convert meters to pixels
