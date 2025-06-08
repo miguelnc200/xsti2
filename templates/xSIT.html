@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html>More actions
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,19 +11,19 @@
             padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
             background: linear-gradient(135deg, #0a1a3d, #1d3c5f, #0a1a3d);
             color: white;
             padding: 20px;
             min-height: 100vh;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
         }
-        
+
         header {
             text-align: center;
             margin-bottom: 30px;
@@ -32,14 +32,14 @@
             border-radius: 15px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
         }
-        
+
         h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             color: #4da6ff;
         }
-        
+
         .subtitle {
             font-size: 1.1rem;
             opacity: 0.9;
@@ -47,14 +47,14 @@
             margin: 0 auto;
             line-height: 1.6;
         }
-        
+
         .content {
             display: flex;
             flex-direction: column;
             gap: 30px;
             margin-bottom: 30px;
         }
-        
+
         .panel {
             flex: 1;
             min-width: 300px;
@@ -64,7 +64,7 @@
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(10px);
         }
-        
+
         .panel-title {
             font-size: 1.5rem;
             margin-bottom: 20px;
@@ -73,17 +73,17 @@
             padding-bottom: 10px;
             border-bottom: 2px solid rgba(77, 166, 255, 0.3);
         }
-        
+
         .control-group {
             margin-bottom: 20px;
         }
-        
+
         label {
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
         }
-        
+
         input[type="number"] {
             width: 100%;
             padding: 12px;
@@ -94,13 +94,13 @@
             font-size: 1rem;
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        
+
         input[type="number"]:focus {
             outline: none;
             border-color: #4da6ff;
             background: rgba(255, 255, 255, 0.15);
         }
-        
+
         button {
             background: linear-gradient(to right, #4da6ff, #0066cc);
             color: white;
@@ -115,16 +115,16 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-        
+
         button:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
         }
-        
+
         button:active {
             transform: translateY(0);
         }
-        
+
         .status {
             background: rgba(0, 0, 0, 0.3);
             padding: 15px;
@@ -134,7 +134,7 @@
             font-weight: bold;
             border-left: 4px solid #4da6ff;
         }
-        
+
         .canvas-container {
             position: relative;
             background: #1e3c1e;
@@ -142,12 +142,12 @@
             overflow: hidden;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
         }
-        
+
         canvas {
             display: block;
             max-width: 100%;
         }
-        
+
         .legend {
             display: flex;
             justify-content: center;
@@ -155,19 +155,19 @@
             margin-top: 15px;
             flex-wrap: wrap;
         }
-        
+
         .legend-item {
             display: flex;
             align-items: center;
             gap: 8px;
         }
-        
+
         .color-box {
             width: 20px;
             height: 20px;
             border-radius: 4px;
         }
-        
+
         .xsit-result {
             background: rgba(0, 0, 0, 0.4);
             padding: 25px;
@@ -176,7 +176,7 @@
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(10px);
         }
-        
+
         .xsit-value {
             font-size: 4rem;
             font-weight: bold;
@@ -184,13 +184,13 @@
             margin: 20px 0;
             text-shadow: 0 0 10px rgba(77, 166, 255, 0.5);
         }
-        
+
         .xsit-label {
             font-size: 1.3rem;
             opacity: 0.9;
             margin-bottom: 20px;
         }
-        
+
         .explanation {
             text-align: left;
             margin-top: 30px;
@@ -199,38 +199,38 @@
             padding: 20px;
             border-radius: 10px;
         }
-        
+
         .explanation h3 {
             color: #4da6ff;
             margin-bottom: 15px;
             text-align: center;
         }
-        
+
         .explanation ul {
             padding-left: 25px;
             margin-top: 15px;
         }
-        
+
         .explanation li {
             margin-bottom: 10px;
         }
-        
+
         .position-help {
             text-align: center;
             margin-top: 10px;
             font-size: 0.9rem;
             opacity: 0.8;
         }
-        
+
         @media (max-width: 768px) {
             .content {
                 flex-direction: column;
             }
-            
+
             h1 {
                 font-size: 2rem;
             }
-            
+
             .xsit-value {
                 font-size: 3rem;
             }
@@ -243,14 +243,14 @@
             <h1>Precision xSIT Calculator</h1>
             <p class="subtitle">Advanced interactive tool for calculating Expected Shot Interference Threat metric with precise positioning of players.</p>
         </header>
-        
+
         <div class="content">
             <div class="panel">
                 <h2 class="panel-title">Football Field</h2>
                 <div class="canvas-container">
-                    <canvas id="footballField" width="500" height="800"></canvas>
+                    <canvas id="footballField" width="800" height="500"></canvas>
                 </div>
-                
+
                 <div class="legend">
                     <div class="legend-item">
                         <div class="color-box" style="background-color: #ff4d4d;"></div>
@@ -274,43 +274,43 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="panel">
                 <h2 class="panel-title">Configuration</h2>
-                
+
                 <div class="control-group">
                     <label for="numPlayers">Number of defensive players:</label>
                     <input type="number" id="numPlayers" min="1" max="20" value="5">
                 </div>
-                
+
                 <div class="control-group">
                     <label for="shotSpeed">Shot speed (km/h):</label>
                     <input type="number" id="shotSpeed" min="20" max="150" value="80">
                 </div>
-                
+
                 <div class="control-group">
                     <label>Ball position (click on the field):</label>
                     <div class="status" id="ballStatus">Not placed</div>
                     <div class="position-help">(Click on the shot position)</div>
                 </div>
-                
+
                 <div class="control-group">
                     <label>Goalkeeper position (click on the field):</label>
                     <div class="status" id="gkStatus">Not placed</div>
                     <div class="position-help">(Click on the goalkeeper position)</div>
                 </div>
-                
+
                 <div class="control-group">
                     <label>Player positions (click on the field):</label>
                     <div class="status" id="playersStatus">0 / 0 placed</div>
                     <div class="position-help">(Click to place each player)</div>
                 </div>
-                
+
                 <button id="calculateBtn">Calculate xSIT</button>
                 <button id="resetBtn">Reset</button>
             </div>
         </div>
-        
+
         <div class="xsit-result">
             <div class="xsit-label">Your xSIT result:</div>
             <div class="xsit-value" id="xsitValue">0.00</div>
@@ -340,54 +340,54 @@
         const resetBtn = document.getElementById('resetBtn');
         const numPlayersInput = document.getElementById('numPlayers');
         const shotSpeedInput = document.getElementById('shotSpeed');
-        
+
         // Field dimensions in meters
-        const fieldWidth = 75;  // meters
-        const fieldHeight = 40;  // meters
-        
+        const fieldWidth = 120;  // meters
+        const fieldHeight = 75;  // meters
+
         // Canvas dimensions in pixels
         const canvasWidth = canvas.width;
         const canvasHeight = canvas.height;
-        
+
         // Scaling factors
         const scaleX = canvasWidth / fieldWidth;
         const scaleY = canvasHeight / fieldHeight;
-        
+
         let ballPosition = null;
         let goalkeeperPosition = null;
         let playerPositions = [];
         let numPlayers = parseInt(numPlayersInput.value);
         let state = 'ball'; // ball -> goalkeeper -> players
-        
+
         // Initialize field
         drawField();
         updateStatus();
-        
+
         // Event listeners
         canvas.addEventListener('click', handleCanvasClick);
         numPlayersInput.addEventListener('change', updateNumPlayers);
         calculateBtn.addEventListener('click', calculateXSIT);
         resetBtn.addEventListener('click', resetApp);
-        
+
         function updateNumPlayers() {
             numPlayers = parseInt(numPlayersInput.value);
             playersStatus.textContent = `0 / ${numPlayers} placed`;
         }
-        
+
         function handleCanvasClick(event) {
             const rect = canvas.getBoundingClientRect();
-            
+
             // Calculate actual click position considering canvas scaling
             const scaleXCanvas = canvas.width / rect.width;
             const scaleYCanvas = canvas.height / rect.height;
-            
+
             const x = (event.clientX - rect.left) * scaleXCanvas;
             const y = (event.clientY - rect.top) * scaleYCanvas;
-            
+
             // Convert to field coordinates (meters)
             const fieldX = x / scaleX;
             const fieldY = (canvasHeight - y) / scaleY;
-            
+
             switch(state) {
                 case 'ball':
                     ballPosition = { x: fieldX, y: fieldY };
@@ -407,33 +407,33 @@
                     }
                     break;
             }
-            
+
             drawField();
             updateStatus();
         }
-        
+
         function updateStatus() {
             ballStatus.textContent = ballPosition ? "Placed" : "Not placed";
             ballStatus.style.color = ballPosition ? "#4CAF50" : "#F44336";
-            
+
             gkStatus.textContent = goalkeeperPosition ? "Placed" : "Not placed";
             gkStatus.style.color = goalkeeperPosition ? "#4CAF50" : "#F44336";
-            
+
             playersStatus.textContent = `${playerPositions.length} / ${numPlayers} placed`;
             playersStatus.style.color = playerPositions.length === numPlayers ? "#4CAF50" : 
                                       playerPositions.length > 0 ? "#FFC107" : "#F44336";
-            
+
             if (state === 'ready') {
                 playersStatus.textContent += " - Ready to calculate!";
             }
         }
-        
+
         async function calculateXSIT() {
 
-            
+
             try {
                 const shotSpeed = parseFloat(shotSpeedInput.value);
-                
+
                 // Prepare data for backend
                 const data = {
                     pos_balon: [ballPosition.x, ballPosition.y],
@@ -441,7 +441,7 @@
                     portero: [goalkeeperPosition.x, goalkeeperPosition.y],
                     jugadores: playerPositions.map(p => [p.x, p.y])
                 };
-                
+
                 // Send request to backend
                 const response = await fetch('/calculate_xsit', {
                     method: 'POST',
@@ -450,13 +450,13 @@
                     },
                     body: JSON.stringify(data)
                 });
-                
+
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                
+
                 const result = await response.json();
-                
+
                 // Update UI with result
                 animateValue(0, result.xsit, 1500);
             } catch (error) {
@@ -464,25 +464,25 @@
                 alert('Error connecting to backend. Make sure the server is running.');
             }
         }
-        
+
         function animateValue(start, end, duration) {
             const startTime = performance.now();
             const step = (timestamp) => {
                 const progress = Math.min((timestamp - startTime) / duration, 1);
                 const value = start + progress * (end - start);
                 xsitValue.textContent = value.toFixed(2);
-                
+
                 // Change color based on value
                 const hue = 200 - (value * 100); // Blue to lighter blue
                 xsitValue.style.color = `hsl(${hue}, 100%, 65%)`;
-                
+
                 if (progress < 1) {
                     requestAnimationFrame(step);
                 }
             };
             requestAnimationFrame(step);
         }
-        
+
         function resetApp() {
             ballPosition = null;
             goalkeeperPosition = null;
@@ -493,74 +493,75 @@
             drawField();
             updateStatus();
         }
-        
+
         function drawField() {
             // Clear canvas
             ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-            
+
             // Draw grass
             ctx.fillStyle = '#1e3c1e';
             ctx.fillRect(0, 0, canvasWidth, canvasHeight);
-            
+
             // Draw field lines
             ctx.strokeStyle = 'white';
             ctx.lineWidth = 2;
             ctx.strokeRect(0, 0, canvasWidth, canvasHeight);
+
+            // Center line
+            ctx.beginPath();
+            ctx.moveTo(canvasWidth/2, 0);
+            ctx.lineTo(canvasWidth/2, canvasHeight);
+            ctx.stroke();
             
-            // Draw single goal area at top
-            const goalWidth = 100; // in pixels
-            const areaWidth = scaleX * 16.5; // 16.5m area width
-            const areaHeight = scaleY * 5.5; // 5.5m area depth
-            const penaltyAreaHeight = scaleY * 16.5;
-            const penaltyAreaWidth = scaleX * 40; // full width
-        
-            // Goal posts
+            // Center circle
+            ctx.beginPath();
+            ctx.arc(canvasWidth/2, canvasHeight/2, 70, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            // Goal areas
+            ctx.strokeRect(0, canvasHeight/2 - 100, 100, 200);
+            ctx.strokeRect(canvasWidth - 100, canvasHeight/2 - 100, 100, 200);
+            
+            // Goals
             ctx.fillStyle = 'white';
-            const goalX1 = canvasWidth / 2 - goalWidth / 2;
-            const goalX2 = canvasWidth / 2 + goalWidth / 2;
-            ctx.fillRect(goalX1, 0, 5, 10);
-            ctx.fillRect(goalX2 - 5, 0, 5, 10);
-        
-            // Small area (goal area)
-            ctx.strokeRect(
-                canvasWidth / 2 - areaWidth / 2,
-                0,
-                areaWidth,
-                areaHeight
-            );
-        
-            // Penalty area
-            ctx.strokeRect(
-                canvasWidth / 2 - penaltyAreaWidth / 2,
-                0,
-                penaltyAreaWidth,
-                penaltyAreaHeight
-            );
-        
-            // Draw ball
+            ctx.fillRect(0, canvasHeight/2 - 30, 5, 60);
+            ctx.fillRect(canvasWidth - 5, canvasHeight/2 - 30, 5, 60);
+            
+            // Penalty areas
+            ctx.strokeRect(0, canvasHeight/2 - 150, 50, 300);
+            ctx.strokeRect(canvasWidth - 50, canvasHeight/2 - 150, 50, 300);
+            
+            // Center spot
+            ctx.beginPath();
+            ctx.arc(canvasWidth/2, canvasHeight/2, 5, 0, Math.PI * 2);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            
+            // Draw elements if they exist
             if (ballPosition) {
                 drawBall(ballPosition.x, ballPosition.y);
             }
-        
+            
             if (goalkeeperPosition) {
                 drawGoalkeeper(goalkeeperPosition.x, goalkeeperPosition.y);
             }
-        
+            
             playerPositions.forEach(player => {
                 drawPlayer(player.x, player.y);
             });
-        
+            
+            // Draw effective area if ball exists
             if (ballPosition) {
                 drawEffectiveArea();
             }
         }
 
-        
+
         function drawBall(x, y) {
             // Convert meters to pixels
             const canvasX = x * scaleX;
             const canvasY = canvasHeight - (y * scaleY);
-            
+
             ctx.beginPath();
             ctx.arc(canvasX, canvasY, 8, 0, Math.PI * 2);
             ctx.fillStyle = '#ff4d4d';
@@ -569,19 +570,19 @@
             ctx.lineWidth = 2;
             ctx.stroke();
         }
-        
+
         function drawGoalkeeper(x, y) {
             // Convert meters to pixels
             const canvasX = x * scaleX;
             const canvasY = canvasHeight - (y * scaleY);
-            
+
             // Draw effective area
             const radius = 25;
             ctx.beginPath();
             ctx.arc(canvasX, canvasY, radius, 0, Math.PI * 2);
             ctx.fillStyle = 'rgba(51, 204, 51, 0.3)';
             ctx.fill();
-            
+
             // Draw goalkeeper
             ctx.beginPath();
             ctx.arc(canvasX, canvasY, 10, 0, Math.PI * 2);
@@ -591,19 +592,19 @@
             ctx.lineWidth = 2;
             ctx.stroke();
         }
-        
+
         function drawPlayer(x, y) {
             // Convert meters to pixels
             const canvasX = x * scaleX;
             const canvasY = canvasHeight - (y * scaleY);
-            
+
             // Draw effective area
             const radius = 20;
             ctx.beginPath();
             ctx.arc(canvasX, canvasY, radius, 0, Math.PI * 2);
             ctx.fillStyle = 'rgba(77, 166, 255, 0.3)';
             ctx.fill();
-            
+
             // Draw player
             ctx.beginPath();
             ctx.arc(canvasX, canvasY, 8, 0, Math.PI * 2);
@@ -613,23 +614,23 @@
             ctx.lineWidth = 2;
             ctx.stroke();
         }
-        
+
         function drawEffectiveArea() {
             // Convert meters to pixels
             const ballCanvasX = ballPosition.x * scaleX;
             const ballCanvasY = canvasHeight - (ballPosition.y * scaleY);
-            
+
             // Draw shot cone
             const goalX = ballPosition.x > 60 ? canvasWidth : 0;
             const goalY1 = canvasHeight - (32 * scaleY);
             const goalY2 = canvasHeight - (43 * scaleY);
-            
+
             ctx.beginPath();
             ctx.moveTo(ballCanvasX, ballCanvasY);
             ctx.lineTo(goalX, goalY1);
             ctx.lineTo(goalX, goalY2);
             ctx.closePath();
-            
+
             ctx.fillStyle = 'rgba(255, 0, 0, 0.2)';
             ctx.fill();
             ctx.strokeStyle = 'rgba(255, 0, 0, 0.6)';
@@ -637,6 +638,6 @@
             ctx.stroke();
         }
 
-    </script>
+    </script>More actions
 </body>
 </html>
