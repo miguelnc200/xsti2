@@ -528,18 +528,18 @@
             ctx.fillRect(canvasWidth - 5, canvasHeight/2 - 30, 5, 60);
             
             // Penalty areas
-            ctx.strokeRect(0, canvasHeight/2 - 150, 50, 75);
-            ctx.strokeRect(canvasWidth - 50, canvasHeight/2 - 150, 50, 75);
+            ctx.strokeRect(0, canvasHeight/2 - 40, 30, 80);
+            ctx.strokeRect(canvasWidth - 30, canvasHeight/2 - 40, 30, 80);
 
             // Penalty spot
             ctx.beginPath();
-            ctx.arc(canvasWidth/10, canvasHeight/2, 5, 0, Math.PI * 2);
+            ctx.arc(canvasWidth/10, canvasHeight/2, 2, 0, Math.PI * 2);
             ctx.fillStyle = 'white';
             ctx.fill();
 
             // Penalty spot
             ctx.beginPath();
-            ctx.arc(canvasWidth - canvasWidth/10, canvasHeight/2, 5, 0, Math.PI * 2);
+            ctx.arc(canvasWidth - canvasWidth/10, canvasHeight/2, 2, 0, Math.PI * 2);
             ctx.fillStyle = 'white';
             ctx.fill();
             
