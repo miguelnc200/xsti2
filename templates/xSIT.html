@@ -50,7 +50,7 @@
         
         .content {
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
             gap: 30px;
             margin-bottom: 30px;
         }
@@ -246,6 +246,36 @@
         
         <div class="content">
             <div class="panel">
+                <h2 class="panel-title">Football Field</h2>
+                <div class="canvas-container">
+                    <canvas id="footballField" width="800" height="500"></canvas>
+                </div>
+                
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="color-box" style="background-color: #ff4d4d;"></div>
+                        <span>Ball</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="color-box" style="background-color: #33cc33;"></div>
+                        <span>Goalkeeper</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="color-box" style="background-color: #4da6ff;"></div>
+                        <span>Players</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="color-box" style="background-color: rgba(51, 204, 51, 0.3);"></div>
+                        <span>Goalkeeper effective area</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="color-box" style="background-color: rgba(77, 166, 255, 0.3);"></div>
+                        <span>Player effective area</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel">
                 <h2 class="panel-title">Configuration</h2>
                 
                 <div class="control-group">
@@ -278,36 +308,6 @@
                 
                 <button id="calculateBtn">Calculate xSIT</button>
                 <button id="resetBtn">Reset</button>
-            </div>
-            
-            <div class="panel">
-                <h2 class="panel-title">Football Field</h2>
-                <div class="canvas-container">
-                    <canvas id="footballField" width="800" height="500"></canvas>
-                </div>
-                
-                <div class="legend">
-                    <div class="legend-item">
-                        <div class="color-box" style="background-color: #ff4d4d;"></div>
-                        <span>Ball</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="color-box" style="background-color: #33cc33;"></div>
-                        <span>Goalkeeper</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="color-box" style="background-color: #4da6ff;"></div>
-                        <span>Players</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="color-box" style="background-color: rgba(51, 204, 51, 0.3);"></div>
-                        <span>Goalkeeper effective area</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="color-box" style="background-color: rgba(77, 166, 255, 0.3);"></div>
-                        <span>Player effective area</span>
-                    </div>
-                </div>
             </div>
         </div>
         
